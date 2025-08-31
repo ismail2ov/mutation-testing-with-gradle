@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '3.5.5'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'com.diffplug.spotless' version '7.2.1'
+    id 'org.openapi.generator' version '7.14.0'
 }
 
 group = 'com.github.ismail2ov'
@@ -40,6 +41,11 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    // OpenAPI / Swagger
+    implementation 'io.swagger.core.v3:swagger-annotations:2.2.36'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.11'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+
     // Test utils
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
@@ -61,6 +67,23 @@ spotless {
     }
 }
 
+openApiGenerate {
+    generatorName = 'spring'
+    inputSpec = file('src/main/resources/openapi/definition.yml').path
+    outputDir = layout.buildDirectory.dir('generated').get().asFile.path
+    apiPackage = 'com.github.ismail2ov.ecommerce.infrastructure.controller.api'
+    modelPackage = 'com.github.ismail2ov.ecommerce.infrastructure.controller.model'
+    modelNameSuffix = 'RDTO'
+    configOptions = [
+            useSpringBoot3      : 'true',
+            useJakartaEe        : 'true',
+            interfaceOnly       : 'true',
+            skipDefaultInterface: 'true'
+    ]
+}
+
+sourceSets.main.java.srcDirs += layout.buildDirectory.dir('generated/src/main/java').get().asFile
+
 tasks.named('compileJava') {
-    dependsOn tasks.named('spotlessApply')
+    dependsOn tasks.named('spotlessApply'), tasks.named('openApiGenerate')
 }
