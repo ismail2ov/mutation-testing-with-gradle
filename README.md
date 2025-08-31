@@ -199,3 +199,15 @@ open build/reports/jacoco/html/index.html
 ```bash
 ./gradlew pmdMain
 ```
+
+### Mutation Testing
+
+#### Run the mutation tests
+```shell
+ ./gradlew pitest
+```
+
+####  View detailed mutation report
+```shell
+open build/reports/pitest/index.html
+```
