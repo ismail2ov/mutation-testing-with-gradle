@@ -167,6 +167,8 @@ pitest {
     threads = 8
     enableDefaultIncrementalAnalysis = true
 
+    mutationThreshold = 80
+
     excludedTestClasses = [
             '**.*IntegrationTest',
             '**.LayerDependencyRulesTest'
