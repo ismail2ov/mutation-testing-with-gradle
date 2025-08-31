@@ -162,4 +162,8 @@ pmd {
 
 pitest {
     pitestVersion = '1.20.2'
+
+    timestampedReports = false
+    threads = 8
+    enableDefaultIncrementalAnalysis = true
 }
