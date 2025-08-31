@@ -37,14 +37,18 @@ dependencies {
     implementation 'org.flywaydb:flyway-database-postgresql'
     runtimeOnly 'org.postgresql:postgresql'
 
-    // Lombok
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-
     // OpenAPI / Swagger
     implementation 'io.swagger.core.v3:swagger-annotations:2.2.36'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.11'
     implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // MapStruct
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 
     // Test utils
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -86,4 +90,13 @@ sourceSets.main.java.srcDirs += layout.buildDirectory.dir('generated/src/main/ja
 
 tasks.named('compileJava') {
     dependsOn tasks.named('spotlessApply'), tasks.named('openApiGenerate')
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += [
+            '-Amapstruct.suppressGeneratorTimestamp=true',
+            '-Amapstruct.suppressGeneratorVersionInfoComment=true',
+            '-Amapstruct.defaultComponentModel=spring',
+            '-Amapstruct.defaultInjectionStrategy=constructor'
+    ]
 }
