@@ -35,6 +35,7 @@ dependencies {
     // Database & migrations
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.flywaydb:flyway-database-postgresql'
+    implementation 'io.hypersistence:hypersistence-utils-hibernate-63:3.10.3'
     runtimeOnly 'org.postgresql:postgresql'
 
     // OpenAPI / Swagger
