@@ -166,4 +166,8 @@ pitest {
     timestampedReports = false
     threads = 8
     enableDefaultIncrementalAnalysis = true
+
+    excludedTestClasses = [
+            '**.*IntegrationTest'
+    ]
 }
