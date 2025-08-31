@@ -211,3 +211,30 @@ open build/reports/jacoco/html/index.html
 ```shell
 open build/reports/pitest/index.html
 ```
+
+## Docker
+
+### Build Docker image:
+```shell
+docker build -t mutation-testing-with-gradle .
+```
+
+### Create and run a new container from an image:
+```shell
+docker run -d -p 8080:8080 --name mutation-testing-with-gradle mutation-testing-with-gradle
+```
+
+### Run with docker compose
+
+```shell
+docker compose up -d
+```
+
+### Access
+URL to access to [Swagger UI](http://localhost:8080/api/swagger-ui.html)
+
+
+### Stop docker containers:
+```shell
+docker compose down -v
+```
