@@ -4,8 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import jakarta.validation.constraints.NotNull;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -14,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
 import com.github.ismail2ov.ecommerce.ProductTestDataFactory;
@@ -46,14 +45,19 @@ class ProductIntegrationTest {
 
         ResponseEntity<ProductPageRDTO> result = testRestTemplate.getForEntity("/products/1", ProductPageRDTO.class);
 
-        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(result).isNotNull();
-        assertThat(result.getBody()).isNotNull();
-        assertThat(result.getBody().getProduct()).isNotNull();
-        assertThat(result.getBody().getProduct())
-            .extracting("name", "price")
-            .contains("Dell Latitude 3301 Intel Core i7-8565U/8GB/512GB SSD/13.3", "999,00 €");
-        assertThat(result.getBody().getCrossSelling()).hasSize(2);
+        assertThat(result)
+            .returns(HttpStatus.OK, ResponseEntity::getStatusCode)
+            .extracting(ResponseEntity::getBody)
+            .isNotNull()
+            .satisfies(body -> {
+                assertThat(body.getProduct())
+                    .isNotNull()
+                    .extracting("name", "price")
+                    .containsExactly("Dell Latitude 3301 Intel Core i7-8565U/8GB/512GB SSD/13.3", "999,00 €");
+
+                assertThat(body.getCrossSelling())
+                    .hasSize(2);
+            });
     }
 
     @Test
@@ -71,9 +75,11 @@ class ProductIntegrationTest {
 
         ResponseEntity<Product[]> result = testRestTemplate.getForEntity("/products", Product[].class);
 
-        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(result).isNotNull();
-        assertThat(result.getBody()).hasSize(4);
+        assertThat(result).satisfies(response -> {
+            assertThat(response).isNotNull();
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+            assertThat(response.getBody()).hasSize(4);
+        });
     }
 
     private @NotNull Product newProductFrom(Product product) {
