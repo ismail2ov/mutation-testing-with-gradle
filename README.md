@@ -147,7 +147,7 @@ Built as an eCommerce cross-selling API using **Spring Boot 3**, this project sh
 
 ### 11. Use native queries to manage cross-sell data.
 
-### 12. This is the example of the [table creations](src/main/resources/db/migration/V001__CREATE_TABLES.sql).
+### 12. This is the example of the [table creations](src/main/resources/db/migration/V001__CREATE_SCHEMA.sql).
 
 
 ## ⚡ Non-Functional Requirements
@@ -193,4 +193,9 @@ open build/reports/jacoco/html/index.html
 #### Check code style and formatting rules
 ```bash
  ./gradlew spotlessCheck
+```
+
+#### Check PMD rules
+```bash
+./gradlew pmdMain
 ```
