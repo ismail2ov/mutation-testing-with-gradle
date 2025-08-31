@@ -157,3 +157,40 @@ Built as an eCommerce cross-selling API using **Spring Boot 3**, this project sh
 - **Static Analysis**: Zero PMD violations
 - **Code Style**: Consistent formatting enforced by Spotless
 - **Architecture**: Implement a hexagonal architecture with proper layer separation
+
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Java 21** or higher
+- **Docker** (for PostgreSQL and Testcontainers)
+- **Gradle 8.x** (wrapper included)
+
+### Build the project
+
+```shell
+./gradlew clean build
+```
+
+### 🛠️ Running Tests & Quality Checks
+
+#### Standard Test Execution
+```bash
+./gradlew test
+```
+
+#### Generate JaCoCo coverage report
+```bash
+./gradlew jacocoTestReport
+```
+
+####  View JaCoCo coverage report
+```shell
+open build/reports/jacoco/html/index.html
+```
+
+#### Check code style and formatting rules
+```bash
+ ./gradlew spotlessCheck
+```
