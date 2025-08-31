@@ -169,6 +169,14 @@ pitest {
 
     mutationThreshold = 80
 
+    excludedClasses = [
+            '**.*Application',
+            '**.*Configuration',
+            '**.*RDTO*',
+            '**.*MapperImpl*',
+            '**.controller.api.ApiUtil'
+    ]
+
     excludedTestClasses = [
             '**.*IntegrationTest',
             '**.LayerDependencyRulesTest'
