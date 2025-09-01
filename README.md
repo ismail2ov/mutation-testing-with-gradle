@@ -5,6 +5,7 @@
 ![Gradle](https://img.shields.io/badge/Gradle-8.x-blue?style=flat-square&logo=gradle)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue?style=flat-square&logo=postgresql)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ismail2ov/mutation-testing-with-gradle)
 
 --- 
 
